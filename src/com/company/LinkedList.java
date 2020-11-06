@@ -3,7 +3,7 @@ package com.company;
 public class LinkedList {
     private Node head;
 
-    public int get(int index) {
+    public int get(int index) {         //Hämtar värdet från ett specifikt index
         int i = 0;
         Node n = head;
         while (i < index) {
@@ -13,10 +13,10 @@ public class LinkedList {
         return n.value;
     }
 
-    public void add(int v) {
+    public void add(int v) {            //Om listan är tom, lägg till nytt värde på första plats.
         if (head == null) {
             head = new Node(v);
-        } else {
+        } else {                        //Annars lägg till nytt värde på sista plats i listan.
             Node n = head;
             while (n.next != null) {
                 n = n.next;
@@ -25,13 +25,13 @@ public class LinkedList {
         }
     }
 
-    public int size() {
+    public int size() {                 //Kollar hur många element det finns i en litsa
         if (head == null) {
             return 0;
         }
         int size = 1;
         Node n = head;
-        while (n.next != null) {
+        while (n.next != null) {        //Så länge n.next inte pekar ut i tomma rymden, fortsätt räkningen
             n = n.next;
             size++;
         }
@@ -67,14 +67,42 @@ public class LinkedList {
         }
         return false;
     }
- //Hjälp från Facit: Det är likt add-funktionen. Men i while-loopen behöver vi hitta en specifik plats att trycka in ny node på.
- // Den nya noden behöver peka på nexta node Innan den föregående noden pekar på den nya noden. Annars uppstår vanlig bugg.
-    /*public void add(int i, int v) {
-       Node n = new Node(v);
-    }*/
+
+    public void add(int v, int index) {
+        Node n = head;
+        if(index == 0){
+            Node node = new Node(v);
+            node.next = head;
+            head = node;
+            return;
+        }
+        if (n != null) {
+            for (int j = 0; j < size(); j++) {
+                if (j == (index - 1)) {
+                    Node addedNode = new Node(v);
+                    addedNode.next = n.next;
+                    n.next = addedNode;
+                    return;
+                }
+                n = n.next;
+            }
+        }
+    }
+
+    public void print(){
+        System.out.print("LinkedList --> ");
+        Node n = head;
+        while (n != null){
+            System.out.print("Node(");
+            System.out.print(n.value);
+            System.out.print(") --> ");
+            n = n.next;
+        }
+        System.out.println("");
+    }
 
 
-    private class Node {
+    protected class Node {
         protected int value;
         protected Node next;
 
@@ -83,3 +111,4 @@ public class LinkedList {
         }
     }
 }
+
